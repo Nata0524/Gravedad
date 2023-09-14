@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Gravedad</title>
+    <style>
+        body {
+            background-color: black; /* Color de fondo de la página */
+            color: white; /* Color del texto */
+            font-family: Arial, sans-serif;
+        }
+
+        #planet {
+            width: 200px;
+            height: 200px;
+            background-color: white; /* Cambia el color de fondo del planeta a negro */
+            position: absolute;
+            border-radius: 50%;
+            top: 0;
+            animation: fall 6s linear forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                top: 100px;
+            }
+            100% {
+                top: 700px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Simulador de Gravedad</h1>
+    <label for="planet-select">Selecciona un planeta:</label>
+    <select id="planet-select">
+        <option value="earth">Tierra</option>
+        <option value="moon">Luna</option>
+        <option value="mars">Marte</option>
+        <option value="venus">Venus</option>
+        <option value="jupiter">Júpiter</option>
+    </select>
+    <br><br>
+    <div id="planet"></div>
+
+    <script>
+        const planetSelect = document.getElementById('planet-select');
+        const planet = document.getElementById('planet');
+        let gravity = 9.81; // Gravedad de la Tierra (m/s^2)
+
+        // Gravedades aproximadas de algunos planetas
+        const planetGravities = {
+            earth: 9.81,
+            moon: 1.625,
+            mars: 3.71,
+            venus: 8.87,
+            jupiter: 24.79,
+        };
+
+        // Actualizar la gravedad cuando se cambia la selección
+        planetSelect.addEventListener('change', () => {
+            const selectedPlanet = planetSelect.value;
+            gravity = planetGravities[selectedPlanet];
+        });
+
+        // Reiniciar la animación al hacer clic en el planeta
+        planet.addEventListener('click', () => {
+            planet.style.animation = 'none';
+            setTimeout(() => {
+                planet.style.animation = 'fall 4s linear forwards';
+            }, 10);
+        });
+    </script>
+</body>
+</html>
